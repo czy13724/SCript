@@ -1,6 +1,6 @@
 # SCript
 
-🔎[查询](https://scripts.levifree.qzz.io)
+🔎[查询](https://script.levifree.qzz.io)
 
 🧭[Surge自定义模块生成器](https://surge-argu.levifree.qzz.io)
 
