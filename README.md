@@ -3,16 +3,22 @@
 > **Note**: Collection of useful script tools and generators.
 > **简介**：实用脚本查询与配置生成工具集合。
 
-## �️ Online Tools / 在线工具
+## 🛠️ Online Tools / 在线工具
 
-*   �🔎 **[Script Search / 脚本查询](https://script.levifree.qzz.io)**
+*   🔎 **[Script Search / 脚本查询](https://script.levifree.qzz.io)**
     *   *Search for scripts efficiently.* / *快速查询所需脚本。*
 
+*   📦 **[BoxJS Generator / BoxJS 订阅生成器](https://boxjs.levifree.qzz.io)**
+    *   *Custom BoxJS subscription builder.* / *BoxJS 订阅自定义构建工具。*
+    *   **Lines / 线路**: [Line 1](https://boxjs.levifree.qzz.io) | [Line 2](https://boxjs.levifree.dpdns.org)
+    
 *   🧭 **[Surge Module Generator / Surge 模块生成器](https://surge-argu.levifree.qzz.io)**
     *   *Create custom Surge modules easily.* / *在线生成 Surge 自定义模块（带参数版）。*
+    *   **Lines / 线路**: [Line 1](https://surge-argu.levifree.qzz.io) | [Line 2](https://surge-argu.levifree.dpdns.org) 
 
 *   🎈 **[Loon Plugin Generator / Loon 插件生成器](https://loon-argu.levifree.qzz.io)**
     *   *Generate Loon plugins with ease.* / *在线生成 Loon 自定义插件。*
+    *   **Lines / 线路**: [Line 1](https://loon-argu.levifree.qzz.io) | [Line 2](https://loon-argu.levifree.dpdns.org)
 
 ## 📬 Contact / 联系方式
 
