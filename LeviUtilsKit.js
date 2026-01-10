@@ -157,8 +157,7 @@ function yuanToFen(y) { return Math.round(y * 100); }
 // Bark 推送通知(需传入$实例)
 async function BarkNotify(c, k, t, b) { for (let i = 0; i < 3; i++) { console.log(`🔷Bark notify >> Start push (${i + 1})`); const s = await new Promise(n => { c.post({ url: 'https://api.day.app/push', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: t, body: b, device_key: k, ext_params: { group: t } }) }, (e, r, d) => r && r.status == 200 ? n(1) : n(d || e)) }); if (s === 1) { console.log('✅Push success!'); break } else { console.log(`❌Push failed! >> ${s.message || s}`) } } }
 // 获取并显示免责声明(需传入$实例)
-async function disclaimer($) { try { const urls = ['https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Declaration.json', 'https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Description.json']; for (const url of urls) { const result = await new Promise(resolve => $.get({ url }, (err, resp, data) => resolve(data ? JSON.parse(data) : null))); if (result && result.notice) { console.log(result.notice); } } } catch (e) { console.log('获取免责声明失败:', e); } }
-
+async function disclaimer($) { const u = ['https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Declaration.json', 'https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Description.json'], t = 1800; for (const url of u) { const r = await new Promise(o => { let f = 0; const d = v => { if (f) return; f = 1, o(v) }, m = setTimeout(() => d(null), t); try { $.get({ url }, (e, _, b) => { clearTimeout(m); if (e || !b) return d(null); try { d(JSON.parse(b)) } catch (_) { d(null) } }) } catch (_) { clearTimeout(m), d(null) } }); r && r.notice && console.log(r.notice) } }
 
 
 // 挂载至 Env 原型，支持 $.funcName() 调用
