@@ -1,49 +1,65 @@
+/*
+*
+    __              _ _                       
+   / /   ___ _   __(_|_)________ _____ ___  __
+  / /   / _ \ | / / / / ___/ __ `/ __ `/ / / /
+ / /___/  __/ |/ / / (__  ) /_/ / /_/ / /_/ / 
+/_____/\___/|___/_/_/____/\__, /\__,_/\__, /  
+                         /____/      /____/   
+    LeviUtilsKit
+                   by Levi 2025.01.11
+----------------------------------------*/
 /******************************************************************************
- * 🛠️ LeviUtilsKit.js - LeviUtilsKit工具箱
- * 适配：Quantumult X, Surge, Loon, Stash, Shadowrocket, Node.js
- * 
- * 📌 使用指南 (Remote Loader)
- * ---------------------------------------------------------------------------
- * 
- * 1️⃣ 脚本头部声明 (放在 const $ = new Env(...) 之前)
- * ----------------------------------------
- * // 加载 LeviUtilsKit 工具箱
- * let LeviUtilsKitReady;
- * const LeviUtilsKit = new Promise(resolve => LeviUtilsKitReady = resolve);
- * 
- * const $ = new Env('脚本名称');
- * 
- * 2️⃣ 业务逻辑
- * ----------------------------------------
- * !(async () => {
- *     await LeviUtilsKit;    // 等待加载并自动升级 $
- *     await $.disclaimer();  // 免责声明 (扩展功能)
- *     
- *     $.log($.md5('hello'));
- *     $.done();
- * })();
- * 
- * 3️⃣ 固定不动区域 (复制以下代码至文件最末尾)
- * ----------------------------------------
- * function Env(t,e){this.name=t;this.isNode=()=>typeof module!=='undefined'&&!!module.exports;}
- * !(async()=>{const urls=['https://cdn.jsdelivr.net/gh/czy13724/SCript@main/LeviUtilsKit.js','https://cdn.jsdmirror.com/gh/czy13724/SCript@main/LeviUtilsKit.js','https://fastly.jsdelivr.net/gh/czy13724/SCript@main/LeviUtilsKit.js','https://raw.githubusercontent.com/czy13724/SCript/main/LeviUtilsKit.js'],k='LeviUtilsKit_Code',isNode=typeof module!=='undefined'&&module.exports,getData=k=>isNode?(process.env[k]||''):(typeof $prefs!=='undefined'?$prefs.valueForKey(k):$persistentStore.read(k))||'',setData=(v,k)=>isNode?(process.env[k]=v,true):(typeof $prefs!=='undefined'?$prefs.setValueForKey(v,k):$persistentStore.write(v,k));let code=getData(k);if(code&&code.length>500){console.log('✅ 使用缓存加载 LeviUtilsKit')}else{for(const u of urls){try{code=await new Promise((ok,no)=>{const get=(u,cb)=>{if(isNode)require('https').get(u,r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>cb(null,d));}).on('error',cb);else if(typeof $task!=='undefined')$task.fetch({url:u}).then(r=>cb(null,r.body),cb);else $httpClient.get({url:u},(e,r,b)=>cb(e,b));};get(u,(e,c)=>e?no(e):ok(c));});if(code&&code.length>500){console.log(`✅ LeviUtilsKit 加载成功: ${u}`);setData(code,k);break;}}catch(e){console.log('❌ LeviUtilsKit 加载失败');}}}Env=eval(code);if(typeof $!=='undefined'&&$.name){const _=new Env($.name);Object.assign($,_);Object.setPrototypeOf($,Object.getPrototypeOf(_));}LeviUtilsKitReady();})();
- * 
- * ============================================================================
- * 
- * ⚙️ 核心特性：
- * ⚡️ [无感加载] 自动接管并升级开头创建的空壳 $ 对象
- * 💾 [智能缓存] 首次下载后自动持久化，后续毫秒级启动
- * 🔄 [多源降级] 加载失败自动切换CDN镜像源
- * 
- * 💻 Node.js 开发：const Env = require('./LeviUtilsKit');
- ******************************************************************************/
+🛠️ LeviUtilsKit.js - LeviUtilsKit工具箱
+适配：Quantumult X, Surge, Loon, Stash, Shadowrocket, Node.js
+
+📌 使用指南 - 脚本模板
+---------------------------------------------------------------------------
+const $ = new Env('脚本名称');
+
+// ========== 业务逻辑 ==========
+!(async () => {
+    // 1. 加载工具箱 (必选)
+    await loadUtils();
+
+    if (typeof $request !== "undefined") {
+        // 数据抓取逻辑
+        handleDataCapture();
+    } else {
+        // 2. 正常任务逻辑
+        $.log('🎯 脚本开始执行');
+        
+        // 使用工具箱函数
+        console.log($.md5('hello'));
+        await $.sleep(1000);
+
+        $.log('✅ 执行完成');
+        $.done();
+    }
+})().catch((e) => {
+    $.log('', `❌ 异常: ${e}`, e.stack || '');
+    $.done();
+});
+
+function handleDataCapture() {
+    // 抓包处理逻辑
+    // const url = $request.url;
+    // ...
+    $.done();
+}
+
+// ========== 固定不动区域 ==========
+// LeviUtilsKit工具箱
+async function loadUtils() { const urls = ['https://cdn.jsdelivr.net/gh/czy13724/SCript@main/LeviUtilsKit.js', 'https://cdn.jsdmirror.com/gh/czy13724/SCript@main/LeviUtilsKit.js', 'https://fastly.jsdelivr.net/gh/czy13724/SCript@main/LeviUtilsKit.js', 'https://raw.githubusercontent.com/czy13724/SCript/main/LeviUtilsKit.js'], k = 'LeviUtilsKit_Code', isNode = typeof module !== 'undefined' && module.exports, getData = k => isNode ? (process.env[k] || '') : (typeof $prefs !== 'undefined' ? $prefs.valueForKey(k) : $persistentStore.read(k)) || '', setData = (v, k) => isNode ? (process.env[k] = v, true) : (typeof $prefs !== 'undefined' ? $prefs.setValueForKey(v, k) : $persistentStore.write(v, k)); let code = getData(k), isCache = false; if (code && code.length > 500) { isCache = true; console.log('✅ 使用缓存加载 LeviUtilsKit') } else { for (const u of urls) { try { code = await new Promise((ok, no) => { const get = (u, cb) => { if (isNode) require('https').get(u, r => { let d = ''; r.on('data', c => d += c); r.on('end', () => cb(null, d)); }).on('error', cb); else if (typeof $task !== 'undefined') $task.fetch({ url: u }).then(r => cb(null, r.body), cb); else $httpClient.get({ url: u }, (e, r, b) => cb(e, b)); }; get(u, (e, c) => e ? no(e) : ok(c)); }); if (code && code.length > 500) { console.log('✅ LeviUtilsKit 加载成功'); setData(code, k); break; } } catch (e) { console.log(`❌ 从 ${u} 加载失败: ${e.message || e}`); } } } try { eval(code); const utils = creatUtils(); Object.keys(utils).forEach(key => { if (typeof utils[key] === 'function') $[key] = utils[key].bind(utils); else $[key] = utils[key]; }); if (!isCache) console.log('✅ LeviUtilsKit 初始化成功'); } catch (e) { console.log('❌ LeviUtilsKit 初始化失败:'); console.log(`   错误: ${e.message || e}`); } }
+// 完整的 Env.js
+// ============================================================================
+// 💻 Node.js 开发：const { creatUtils } = require('./LeviUtilsKit');
+//******************************************************************************/
 
 // ====================================
 // 🔧 扩展工具函数
 // ====================================
 //prettier-ignore
-// From chavyleung's Env.js
-function Env(t, e) { class s { constructor(t) { this.env = t } send(t, e = "GET") { t = "string" == typeof t ? { url: t } : t; let s = this.get; return "POST" === e && (s = this.post), new Promise((e, a) => { s.call(this, t, (t, s, r) => { t ? a(t) : e(s) }) }) } get(t) { return this.send.call(this.env, t) } post(t) { return this.send.call(this.env, t, "POST") } } return new class { constructor(t, e) { this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.encoding = "utf-8", this.startTime = (new Date).getTime(), Object.assign(this, e), this.log("", `🔔${this.name}, 开始!`) } getEnv() { return "undefined" != typeof $environment && $environment["surge-version"] ? "Surge" : "undefined" != typeof $environment && $environment["stash-version"] ? "Stash" : "undefined" != typeof module && module.exports ? "Node.js" : "undefined" != typeof $task ? "Quantumult X" : "undefined" != typeof $loon ? "Loon" : "undefined" != typeof $rocket ? "Shadowrocket" : void 0 } isNode() { return "Node.js" === this.getEnv() } isQuanX() { return "Quantumult X" === this.getEnv() } isSurge() { return "Surge" === this.getEnv() } isLoon() { return "Loon" === this.getEnv() } isShadowrocket() { return "Shadowrocket" === this.getEnv() } isStash() { return "Stash" === this.getEnv() } toObj(t, e = null) { try { return JSON.parse(t) } catch { return e } } toStr(t, e = null) { try { return JSON.stringify(t) } catch { return e } } getjson(t, e) { let s = e; const a = this.getdata(t); if (a) try { s = JSON.parse(this.getdata(t)) } catch { } return s } setjson(t, e) { try { return this.setdata(JSON.stringify(t), e) } catch { return !1 } } getScript(t) { return new Promise(e => { this.get({ url: t }, (t, s, a) => e(a)) }) } runScript(t, e) { return new Promise(s => { let a = this.getdata("@chavy_boxjs_userCfgs.httpapi"); a = a ? a.replace(/\n/g, "").trim() : a; let r = this.getdata("@chavy_boxjs_userCfgs.httpapi_timeout"); r = r ? 1 * r : 20, r = e && e.timeout ? e.timeout : r; const [i, o] = a.split("@"), n = { url: `http://${o}/v1/scripting/evaluate`, body: { script_text: t, mock_type: "cron", timeout: r }, headers: { "X-Key": i, Accept: "*/*" }, timeout: r }; this.post(n, (t, e, a) => s(a)) }).catch(t => this.logErr(t)) } loaddata() { if (!this.isNode()) return {}; { this.fs = this.fs ? this.fs : require("fs"), this.path = this.path ? this.path : require("path"); const t = this.path.resolve(this.dataFile), e = this.path.resolve(process.cwd(), this.dataFile), s = this.fs.existsSync(t), a = !s && this.fs.existsSync(e); if (!s && !a) return {}; { const a = s ? t : e; try { return JSON.parse(this.fs.readFileSync(a)) } catch (t) { return {} } } } } writedata() { if (this.isNode()) { this.fs = this.fs ? this.fs : require("fs"), this.path = this.path ? this.path : require("path"); const t = this.path.resolve(this.dataFile), e = this.path.resolve(process.cwd(), this.dataFile), s = this.fs.existsSync(t), a = !s && this.fs.existsSync(e), r = JSON.stringify(this.data); s ? this.fs.writeFileSync(t, r) : a ? this.fs.writeFileSync(e, r) : this.fs.writeFileSync(t, r) } } lodash_get(t, e, s) { const a = e.replace(/\[(\d+)\]/g, ".$1").split("."); let r = t; for (const t of a) if (r = Object(r)[t], void 0 === r) return s; return r } lodash_set(t, e, s) { return Object(t) !== t ? t : (Array.isArray(e) || (e = e.toString().match(/[^.[\]]+/g) || []), e.slice(0, -1).reduce((t, s, a) => Object(t[s]) === t[s] ? t[s] : t[s] = Math.abs(e[a + 1]) >> 0 == +e[a + 1] ? [] : {}, t)[e[e.length - 1]] = s, t) } getdata(t) { let e = this.getval(t); if (/^@/.test(t)) { const [, s, a] = /^@(.*?)\.(.*?)$/.exec(t), r = s ? this.getval(s) : ""; if (r) try { const t = JSON.parse(r); e = t ? this.lodash_get(t, a, "") : e } catch (t) { e = "" } } return e } setdata(t, e) { let s = !1; if (/^@/.test(e)) { const [, a, r] = /^@(.*?)\.(.*?)$/.exec(e), i = this.getval(a), o = a ? "null" === i ? null : i || "{}" : "{}"; try { const e = JSON.parse(o); this.lodash_set(e, r, t), s = this.setval(JSON.stringify(e), a) } catch (e) { const i = {}; this.lodash_set(i, r, t), s = this.setval(JSON.stringify(i), a) } } else s = this.setval(t, e); return s } getval(t) { switch (this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": return $persistentStore.read(t); case "Quantumult X": return $prefs.valueForKey(t); case "Node.js": return this.data = this.loaddata(), this.data[t]; default: return this.data && this.data[t] || null } } setval(t, e) { switch (this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": return $persistentStore.write(t, e); case "Quantumult X": return $prefs.setValueForKey(t, e); case "Node.js": return this.data = this.loaddata(), this.data[e] = t, this.writedata(), !0; default: return this.data && this.data[e] || null } } initGotEnv(t) { this.got = this.got ? this.got : require("got"), this.cktough = this.cktough ? this.cktough : require("tough-cookie"), this.ckjar = this.ckjar ? this.ckjar : new this.cktough.CookieJar, t && (t.headers = t.headers ? t.headers : {}, void 0 === t.headers.Cookie && void 0 === t.cookieJar && (t.cookieJar = this.ckjar)) } get(t, e = (() => { })) { switch (t.headers && (delete t.headers["Content-Type"], delete t.headers["Content-Length"], delete t.headers["content-type"], delete t.headers["content-length"]), t.params && (t.url += "?" + this.queryStr(t.params)), this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": default: this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, { "X-Surge-Skip-Scripting": !1 })), $httpClient.get(t, (t, s, a) => { !t && s && (s.body = a, s.statusCode = s.status ? s.status : s.statusCode, s.status = s.statusCode), e(t, s, a) }); break; case "Quantumult X": this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, { hints: !1 })), $task.fetch(t).then(t => { const { statusCode: s, statusCode: a, headers: r, body: i, bodyBytes: o } = t; e(null, { status: s, statusCode: a, headers: r, body: i, bodyBytes: o }, i, o) }, t => e(t && t.error || "UndefinedError")); break; case "Node.js": let s = require("iconv-lite"); this.initGotEnv(t), this.got(t).on("redirect", (t, e) => { try { if (t.headers["set-cookie"]) { const s = t.headers["set-cookie"].map(this.cktough.Cookie.parse).toString(); s && this.ckjar.setCookieSync(s, null), e.cookieJar = this.ckjar } } catch (t) { this.logErr(t) } }).then(t => { const { statusCode: a, statusCode: r, headers: i, rawBody: o } = t, n = s.decode(o, this.encoding); e(null, { status: a, statusCode: r, headers: i, rawBody: o, body: n }, n) }, t => { const { message: a, response: r } = t; e(a, r, r && s.decode(r.rawBody, this.encoding)) }) } } post(t, e = (() => { })) { const s = t.method ? t.method.toLocaleLowerCase() : "post"; switch (t.body && t.headers && !t.headers["Content-Type"] && !t.headers["content-type"] && (t.headers["content-type"] = "application/x-www-form-urlencoded"), t.headers && (delete t.headers["Content-Length"], delete t.headers["content-length"]), this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": default: this.isSurge() && this.isNeedRewrite && (t.headers = t.headers || {}, Object.assign(t.headers, { "X-Surge-Skip-Scripting": !1 })), $httpClient[s](t, (t, s, a) => { !t && s && (s.body = a, s.statusCode = s.status ? s.status : s.statusCode, s.status = s.statusCode), e(t, s, a) }); break; case "Quantumult X": t.method = s, this.isNeedRewrite && (t.opts = t.opts || {}, Object.assign(t.opts, { hints: !1 })), $task.fetch(t).then(t => { const { statusCode: s, statusCode: a, headers: r, body: i, bodyBytes: o } = t; e(null, { status: s, statusCode: a, headers: r, body: i, bodyBytes: o }, i, o) }, t => e(t && t.error || "UndefinedError")); break; case "Node.js": let a = require("iconv-lite"); this.initGotEnv(t); const { url: r, ...i } = t; this.got[s](r, i).then(t => { const { statusCode: s, statusCode: r, headers: i, rawBody: o } = t, n = a.decode(o, this.encoding); e(null, { status: s, statusCode: r, headers: i, rawBody: o, body: n }, n) }, t => { const { message: s, response: r } = t; e(s, r, r && a.decode(r.rawBody, this.encoding)) }) } } time(t, e = null) { const s = e ? new Date(e) : new Date; let a = { "M+": s.getMonth() + 1, "d+": s.getDate(), "H+": s.getHours(), "m+": s.getMinutes(), "s+": s.getSeconds(), "q+": Math.floor((s.getMonth() + 3) / 3), S: s.getMilliseconds() }; /(y+)/.test(t) && (t = t.replace(RegExp.$1, (s.getFullYear() + "").substr(4 - RegExp.$1.length))); for (let e in a) new RegExp("(" + e + ")").test(t) && (t = t.replace(RegExp.$1, 1 == RegExp.$1.length ? a[e] : ("00" + a[e]).substr(("" + a[e]).length))); return t } queryStr(t) { let e = ""; for (const s in t) { let a = t[s]; null != a && "" !== a && ("object" == typeof a && (a = JSON.stringify(a)), e += `${s}=${a}&`) } return e = e.substring(0, e.length - 1), e } msg(e = t, s = "", a = "", r) { const i = t => { switch (typeof t) { case void 0: return t; case "string": switch (this.getEnv()) { case "Surge": case "Stash": default: return { url: t }; case "Loon": case "Shadowrocket": return t; case "Quantumult X": return { "open-url": t }; case "Node.js": return }case "object": switch (this.getEnv()) { case "Surge": case "Stash": case "Shadowrocket": default: { let e = t.url || t.openUrl || t["open-url"]; return { url: e } } case "Loon": { let e = t.openUrl || t.url || t["open-url"], s = t.mediaUrl || t["media-url"]; return { openUrl: e, mediaUrl: s } } case "Quantumult X": { let e = t["open-url"] || t.url || t.openUrl, s = t["media-url"] || t.mediaUrl, a = t["update-pasteboard"] || t.updatePasteboard; return { "open-url": e, "media-url": s, "update-pasteboard": a } } case "Node.js": return }default: return } }; if (!this.isMute) switch (this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": default: $notification.post(e, s, a, i(r)); break; case "Quantumult X": $notify(e, s, a, i(r)); break; case "Node.js": }if (!this.isMuteLog) { let t = ["", "==============📣系统通知📣=============="]; t.push(e), s && t.push(s), a && t.push(a), console.log(t.join("\n")), this.logs = this.logs.concat(t) } } log(...t) { t.length > 0 && (this.logs = [...this.logs, ...t]), console.log(t.join(this.logSeparator)) } logErr(t, e) { switch (this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": case "Quantumult X": default: this.log("", `❗️${this.name}, 错误!`, t); break; case "Node.js": this.log("", `❗️${this.name}, 错误!`, t.stack) } } wait(t) { return new Promise(e => setTimeout(e, t)) } done(t = {}) { const e = (new Date).getTime(), s = (e - this.startTime) / 1e3; switch (this.log("", `🔔${this.name}, 结束! 🕛 ${s} 秒`), this.log(), this.getEnv()) { case "Surge": case "Loon": case "Stash": case "Shadowrocket": case "Quantumult X": default: $done(t); break; case "Node.js": process.exit(1) } } }(t, e) }
 // MD5 加密
 function md5(a) { function b(a, b) { return (a << b) | (a >>> (32 - b)); } function c(a, b) { var c, d, e, f, g; return ((e = 2147483648 & a), (f = 2147483648 & b), (c = 1073741824 & a), (d = 1073741824 & b), (g = (1073741823 & a) + (1073741823 & b)), c & d ? 2147483648 ^ g ^ e ^ f : c | d ? 1073741824 & g ? 3221225472 ^ g ^ e ^ f : 1073741824 ^ g ^ e ^ f : g ^ e ^ f); } function d(a, b, c) { return (a & b) | (~a & c); } function e(a, b, c) { return (a & c) | (b & ~c); } function f(a, b, c) { return a ^ b ^ c; } function g(a, b, c) { return b ^ (a | ~c); } function h(a, e, f, g, h, i, j) { return (a = c(a, c(c(d(e, f, g), h), j))), c(b(a, i), e); } function i(a, d, f, g, h, i, j) { return (a = c(a, c(c(e(d, f, g), h), j))), c(b(a, i), d); } function j(a, d, e, g, h, i, j) { return (a = c(a, c(c(f(d, e, g), h), j))), c(b(a, i), d); } function k(a, d, e, f, h, i, j) { return (a = c(a, c(c(g(d, e, f), h), j))), c(b(a, i), d); } function l(a) { for (var b, c = a.length, d = c + 8, e = (d - (d % 64)) / 64, f = 16 * (e + 1), g = new Array(f - 1), h = 0, i = 0; c > i;)(b = (i - (i % 4)) / 4), (h = (i % 4) * 8), (g[b] = g[b] | (a.charCodeAt(i) << h)), i++; return ((b = (i - (i % 4)) / 4), (h = (i % 4) * 8), (g[b] = g[b] | (128 << h)), (g[f - 2] = c << 3), (g[f - 1] = c >>> 29), g); } function m(a) { var b, c, d = "", e = ""; for (c = 0; 3 >= c; c++)(b = (a >>> (8 * c)) & 255), (e = "0" + b.toString(16)), (d += e.substr(e.length - 2, 2)); return d; } function n(a) { a = a.replace(/\r\n/g, "\n"); for (var b = "", c = 0; c < a.length; c++) { var d = a.charCodeAt(c); 128 > d ? (b += String.fromCharCode(d)) : d > 127 && 2048 > d ? ((b += String.fromCharCode((d >> 6) | 192)), (b += String.fromCharCode((63 & d) | 128))) : ((b += String.fromCharCode((d >> 12) | 224)), (b += String.fromCharCode(((d >> 6) & 63) | 128)), (b += String.fromCharCode((63 & d) | 128))); } return b; } var o, p, q, r, s, t, u, v, w, x = [], y = 7, z = 12, A = 17, B = 22, C = 5, D = 9, E = 14, F = 20, G = 4, H = 11, I = 16, J = 23, K = 6, L = 10, M = 15, N = 21; for (a = n(a), x = l(a), t = 1732584193, u = 4023233417, v = 2562383102, w = 271733878, o = 0; o < x.length; o += 16)(p = t), (q = u), (r = v), (s = w), (t = h(t, u, v, w, x[o + 0], y, 3614090360)), (w = h(w, t, u, v, x[o + 1], z, 3905402710)), (v = h(v, w, t, u, x[o + 2], A, 606105819)), (u = h(u, v, w, t, x[o + 3], B, 3250441966)), (t = h(t, u, v, w, x[o + 4], y, 4118548399)), (w = h(w, t, u, v, x[o + 5], z, 1200080426)), (v = h(v, w, t, u, x[o + 6], A, 2821735955)), (u = h(u, v, w, t, x[o + 7], B, 4249261313)), (t = h(t, u, v, w, x[o + 8], y, 1770035416)), (w = h(w, t, u, v, x[o + 9], z, 2336552879)), (v = h(v, w, t, u, x[o + 10], A, 4294925233)), (u = h(u, v, w, t, x[o + 11], B, 2304563134)), (t = h(t, u, v, w, x[o + 12], y, 1804603682)), (w = h(w, t, u, v, x[o + 13], z, 4254626195)), (v = h(v, w, t, u, x[o + 14], A, 2792965006)), (u = h(u, v, w, t, x[o + 15], B, 1236535329)), (t = i(t, u, v, w, x[o + 1], C, 4129170786)), (w = i(w, t, u, v, x[o + 6], D, 3225465664)), (v = i(v, w, t, u, x[o + 11], E, 643717713)), (u = i(u, v, w, t, x[o + 0], F, 3921069994)), (t = i(t, u, v, w, x[o + 5], C, 3593408605)), (w = i(w, t, u, v, x[o + 10], D, 38016083)), (v = i(v, w, t, u, x[o + 15], E, 3634488961)), (u = i(u, v, w, t, x[o + 4], F, 3889429448)), (t = i(t, u, v, w, x[o + 9], C, 568446438)), (w = i(w, t, u, v, x[o + 14], D, 3275163606)), (v = i(v, w, t, u, x[o + 3], E, 4107603335)), (u = i(u, v, w, t, x[o + 8], F, 1163531501)), (t = i(t, u, v, w, x[o + 13], C, 2850285829)), (w = i(w, t, u, v, x[o + 2], D, 4243563512)), (v = i(v, w, t, u, x[o + 7], E, 1735328473)), (u = i(u, v, w, t, x[o + 12], F, 2368359562)), (t = j(t, u, v, w, x[o + 5], G, 4294588738)), (w = j(w, t, u, v, x[o + 8], H, 2272392833)), (v = j(v, w, t, u, x[o + 11], I, 1839030562)), (u = j(u, v, w, t, x[o + 14], J, 4259657740)), (t = j(t, u, v, w, x[o + 1], G, 2763975236)), (w = j(w, t, u, v, x[o + 4], H, 1272893353)), (v = j(v, w, t, u, x[o + 7], I, 4139469664)), (u = j(u, v, w, t, x[o + 10], J, 3200236656)), (t = j(t, u, v, w, x[o + 13], G, 681279174)), (w = j(w, t, u, v, x[o + 0], H, 3936430074)), (v = j(v, w, t, u, x[o + 3], I, 3572445317)), (u = j(u, v, w, t, x[o + 6], J, 76029189)), (t = j(t, u, v, w, x[o + 9], G, 3654602809)), (w = j(w, t, u, v, x[o + 12], H, 3873151461)), (v = j(v, w, t, u, x[o + 15], I, 530742520)), (u = j(u, v, w, t, x[o + 2], J, 3299628645)), (t = k(t, u, v, w, x[o + 0], K, 4096336452)), (w = k(w, t, u, v, x[o + 7], L, 1126891415)), (v = k(v, w, t, u, x[o + 14], M, 2878612391)), (u = k(u, v, w, t, x[o + 5], N, 4237533241)), (t = k(t, u, v, w, x[o + 12], K, 1700485571)), (w = k(w, t, u, v, x[o + 3], L, 2399980690)), (v = k(v, w, t, u, x[o + 10], M, 4293915773)), (u = k(u, v, w, t, x[o + 1], N, 2240044497)), (t = k(t, u, v, w, x[o + 8], K, 1873313359)), (w = k(w, t, u, v, x[o + 15], L, 4264355552)), (v = k(v, w, t, u, x[o + 6], M, 2734768916)), (u = k(u, v, w, t, x[o + 13], N, 1309151649)), (t = k(t, u, v, w, x[o + 4], K, 4149444226)), (w = k(w, t, u, v, x[o + 11], L, 3174756917)), (v = k(v, w, t, u, x[o + 2], M, 718787259)), (u = k(u, v, w, t, x[o + 9], N, 3951481745)), (t = c(t, p)), (u = c(u, q)), (v = c(v, r)), (w = c(w, s)); var O = m(t) + m(u) + m(v) + m(w); return O.toLowerCase(); }
 // SHA1 加密
@@ -154,42 +170,11 @@ function copyToClipboard(t) { return typeof navigator === 'undefined' ? Promise.
 function fenToYuan(f) { return (f / 100).toFixed(2); }
 // 元转分
 function yuanToFen(y) { return Math.round(y * 100); }
-// Bark 推送通知(需传入$实例)
-function BarkNotify(c, k, t, b) { return new Promise(r => { let i = 0; function n() { if (i >= 3) { r(); return } console.log(`🔷Bark notify >> Start push (${++i})`); c.post({ url: 'https://api.day.app/push', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: t, body: b, device_key: k, ext_params: { group: t } }) }, (e, s, d) => { if (s && s.status == 200) { console.log('✅Push success!'); r() } else { console.log(`❌Push failed! >> ${(d && d.message) || e}`); n() } }) } n() }) }
-// 获取并显示免责声明(需传入$实例)
-function disclaimer($) { return new Promise(r => { const u = ['https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Declaration.json', 'https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Description.json']; let i = 0; function n() { if (i >= u.length) { r(); return } const e = u[i++], t = setTimeout(() => n(), 3e3), o = (e, a) => { clearTimeout(t); if (e || !a) { n(); return } try { const e = JSON.parse(a); e && e.notice ? (console.log(e.notice), r()) : n() } catch (e) { n() } }; typeof $httpClient !== 'undefined' ? $httpClient.get({ url: e, timeout: 5 }, (e, _, a) => o(e, a)) : typeof $task !== 'undefined' ? $task.fetch({ url: e }).then(e => o(null, e.body), e => o(e, null)) : require('https').get(e, e => { let r = ''; e.on('data', e => r += e); e.on('end', () => o(null, r)) }).on('error', e => o(e, null)) } n() }) }
-// 挂载至 Env 原型，支持 $.funcName() 调用
-Object.assign(Env.prototype, {
-      // 加密/编码
-      md5, sha1, base64Encode, base64Decode, urlEncode, urlDecode,
+// Bark 消息通知
+function barkNotify(k, t, c) { if (!k || !t || !c) { return console.log("❌ Bark 推送参数不完整"), Promise.resolve() } const u = `https://api.day.app/${k}/${encodeURIComponent(t)}/${encodeURIComponent(c)}`, i = "undefined" != typeof module && !!module.exports; return new Promise(e => { if (i) { const o = require("https"); o.get(u, o => { let r = ""; o.on("data", e => r += e), o.on("end", () => { try { const o = JSON.parse(r); 200 === o.code ? console.log("✅ Bark 推送成功") : console.log(`❌ Bark 推送失败: ${o.message}`) } catch (o) { console.log(`❌ Bark 响应解析失败: ${o.message}`) } e() }) }).on("error", o => { console.log(`❌ Bark 请求失败: ${o.message}`), e() }) } else if ("undefined" != typeof $task) $task.fetch({ url: u }).then(o => { try { const r = JSON.parse(o.body); 200 === r.code ? console.log("✅ Bark 推送成功") : console.log(`❌ Bark 推送失败: ${r.message}`) } catch (o) { console.log(`❌ Bark 响应解析失败: ${o.message}`) } e() }, o => { console.log(`❌ Bark 请求失败: ${o}`), e() }); else if ("undefined" != typeof $httpClient) $httpClient.get({ url: u }, (o, r, n) => { !o && n ? (() => { try { const o = JSON.parse(n); 200 === o.code ? console.log("✅ Bark 推送成功") : console.log(`❌ Bark 推送失败: ${o.message}`) } catch (o) { console.log(`❌ Bark 响应解析失败: ${o.message}`) } })() : console.log(`❌ Bark 请求失败: ${o}`), e() }); else { console.log("❌ 不支持的运行环境"), e() } }) }
+// 创建工具实例的工厂函数
+function creatUtils() { return { MD5_Encrypt: t => md5(t), SHA1_Encrypt: t => sha1(t), base64Encode: t => base64Encode(t), base64Decode: t => base64Decode(t), urlEncode: t => urlEncode(t), urlDecode: t => urlDecode(t), guid: () => guid(), randomInt: (t, n) => randomInt(t, n), randomString: t => randomString(t), randomMac: () => randomMac(), phoneNum: t => phoneNum(t), range: (t, n, r) => range(t, n, r), randomArrayItem: t => randomArrayItem(t), shuffleArray: t => shuffleArray(t), ts13: () => ts13(), ts10: () => ts10(), tsToDate: t => tsToDate(t), localHours: () => localHours(), localMinutes: () => localMinutes(), localYear: () => localYear(), localMonth: () => localMonth(), localMonthPadded: () => localMonthPadded(), localDay: () => localDay(), localDayPadded: () => localDayPadded(), sleep: t => sleep(t), delay: t => delay(t), retry: (t, n, r) => retry(t, n, r), debounce: (t, n) => debounce(t, n), throttle: (t, n) => throttle(t, n), objectKeys2LowerCase: t => objectKeys2LowerCase(t), queryToObj: t => queryToObj(t), jsonToUrl: t => jsonToUrl(t), uniqueArray: t => uniqueArray(t), deepClone: t => deepClone(t), intersection: (t, n) => intersection(t, n), difference: (t, n) => difference(t, n), padZero: (t, n) => padZero(t, n), fenToYuan: t => fenToYuan(t), yuanToFen: t => yuanToFen(t), formatNumber: t => formatNumber(t), formatFileSize: t => formatFileSize(t), capitalize: t => capitalize(t), truncate: (t, n) => truncate(t, n), rgbToHex: (t, n, r) => rgbToHex(t, n, r), hexToRgb: t => hexToRgb(t), validator: (t, n) => validator(t, n), isEmptyObject: t => isEmptyObject(t), isEmptyArray: t => isEmptyArray(t), compareVersion: (t, n) => compareVersion(t, n), getObjectValue: (t, n, r) => getObjectValue(t, n, r), groupBy: (t, n) => groupBy(t, n), flattenArray: t => flattenArray(t), getUrlParams: t => getUrlParams(t), downloadFile: (t, n) => downloadFile(t, n), copyToClipboard: t => copyToClipboard(t), BarkNotify: (k, t, c) => barkNotify(k, t, c) } }
 
-      // 随机/生成
-      guid, randomInt, randomString, randomMac, phoneNum,
-      range, randomArrayItem, shuffleArray,
-
-      // 时间/日期/流程
-      ts13, ts10, tsToDate,
-      localHours, localMinutes, localYear, localMonth, localMonthPadded, localDay, localDayPadded,
-      sleep, delay, wait: delay, retry, debounce, throttle,
-
-      // 数据处理/格式化
-      objectKeys2LowerCase, queryToObj, jsonToUrl, uniqueArray, deepClone,
-      intersection, difference, padZero, fenToYuan, yuanToFen,
-      formatNumber, formatFileSize, capitalize, truncate, rgbToHex, hexToRgb,
-
-      // 校验/判断
-      validator, isEmptyObject, isEmptyArray, compareVersion,
-
-      // 对象/数组操作
-      getObjectValue, groupBy, flattenArray,
-
-      // 浏览器/杂项
-      getUrlParams, downloadFile, copyToClipboard,
-
-      // 特殊函数适配
-      disclaimer: function () { return disclaimer(this) },
-      BarkNotify: function (k, t, b) { return BarkNotify(this, k, t, b) }
-});
-
-if (typeof module !== 'undefined') module.exports = Env;
-Env;
+if (typeof module !== 'undefined') module.exports = { creatUtils };
+// 返回工具函数供 eval + creatUtils 使用
+creatUtils;
