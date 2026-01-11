@@ -141,7 +141,7 @@ function intersection(...a) { return a.reduce((x, y) => x.filter(z => y.includes
 // 数组差集
 function difference(a1, a2) { return a1.filter(x => !a2.includes(x)); }
 // 重试函数
-async function retry(f, t = 3, i = 1000) { for (let n = 0; n < t; n++) { try { return await f(); } catch (e) { if (n === t - 1) throw e; await sleep(i); } } }
+function retry(f, t = 3, i = 1e3) { return new Promise((r, e) => { let n = 0; function o() { f().then(r, a => { if (++n >= t) { e(a); return } setTimeout(o, i) }) } o() }) }
 // 数字补零
 function padZero(n, l = 2) { return n.toString().padStart(l, "0"); }
 // 获取 URL 参数
@@ -149,15 +149,15 @@ function getUrlParams(u) { try { const p = {}, url = new URL(u || window?.locati
 // 下载文件(浏览器)
 function downloadFile(u, f) { if (typeof window === "undefined") return; const a = document.createElement("a"); a.href = u; a.download = f || ""; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 // 复制到剪贴板(浏览器)
-async function copyToClipboard(t) { if (typeof navigator === "undefined") return false; try { await navigator.clipboard.writeText(t); return true; } catch (e) { return false; } }
+function copyToClipboard(t) { return typeof navigator === 'undefined' ? Promise.resolve(!1) : navigator.clipboard.writeText(t).then(() => !0, () => !1) }
 // 分转元
 function fenToYuan(f) { return (f / 100).toFixed(2); }
 // 元转分
 function yuanToFen(y) { return Math.round(y * 100); }
 // Bark 推送通知(需传入$实例)
-async function BarkNotify(c, k, t, b) { for (let i = 0; i < 3; i++) { console.log(`🔷Bark notify >> Start push (${i + 1})`); const s = await new Promise(n => { c.post({ url: 'https://api.day.app/push', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: t, body: b, device_key: k, ext_params: { group: t } }) }, (e, r, d) => r && r.status == 200 ? n(1) : n(d || e)) }); if (s === 1) { console.log('✅Push success!'); break } else { console.log(`❌Push failed! >> ${s.message || s}`) } } }
+function BarkNotify(c, k, t, b) { return new Promise(r => { let i = 0; function n() { if (i >= 3) { r(); return } console.log(`🔷Bark notify >> Start push (${++i})`); c.post({ url: 'https://api.day.app/push', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: t, body: b, device_key: k, ext_params: { group: t } }) }, (e, s, d) => { if (s && s.status == 200) { console.log('✅Push success!'); r() } else { console.log(`❌Push failed! >> ${(d && d.message) || e}`); n() } }) } n() }) }
 // 获取并显示免责声明(需传入$实例)
-async function disclaimer($) { const u = ['https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Declaration.json', 'https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Description.json']; for (const x of u) { let b = null; try { b = await Promise.race([new Promise(r => typeof $httpClient != 'undefined' ? $httpClient.get({ url: x, timeout: 5 }, (e, _, d) => r(e ? null : d)) : typeof $task != 'undefined' ? $task.fetch({ url: x }).then(o => r(o.body), _ => r(null)) : require('https').get(x, o => { let s = ''; o.on('data', c => s += c); o.on('end', () => r(s)) }).on('error', () => r(null))), new Promise(r => setTimeout(() => r(null), 3000))]); } catch (_) { b = null } if (!b) continue; try { const j = JSON.parse(b); if (j && j.notice) { console.log(j.notice); break } } catch (_) { } } }
+function disclaimer($) { return new Promise(r => { const u = ['https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Declaration.json', 'https://fastly.jsdelivr.net/gh/czy13724/Quantumult-X@main/NAvailable/Description.json']; let i = 0; function n() { if (i >= u.length) { r(); return } const e = u[i++], t = setTimeout(() => n(), 3e3), o = (e, a) => { clearTimeout(t); if (e || !a) { n(); return } try { const e = JSON.parse(a); e && e.notice ? (console.log(e.notice), r()) : n() } catch (e) { n() } }; typeof $httpClient !== 'undefined' ? $httpClient.get({ url: e, timeout: 5 }, (e, _, a) => o(e, a)) : typeof $task !== 'undefined' ? $task.fetch({ url: e }).then(e => o(null, e.body), e => o(e, null)) : require('https').get(e, e => { let r = ''; e.on('data', e => r += e); e.on('end', () => o(null, r)) }).on('error', e => o(e, null)) } n() }) }
 // 挂载至 Env 原型，支持 $.funcName() 调用
 Object.assign(Env.prototype, {
       // 加密/编码
