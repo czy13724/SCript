@@ -1199,7 +1199,7 @@
           "id": "wetalk_data",
           "name": "账号数据",
           "type": "textarea",
-          "desc": "JSON 数组格式。包含 email, callpin, uniquedeviceid 等抓包数据。"
+          "desc": "JSON 数组格式"
         },
         {
           "id": "wetalk_action",
