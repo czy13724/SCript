@@ -1057,6 +1057,202 @@
         "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/zto.png",
         "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/zto.png"
       ]
+    },
+    {
+      "id": "bananain",
+      "name": "蕉内",
+      "keys": [
+        "bananain_data",
+        "bananain_activity_id"
+      ],
+      "settings": [
+        {
+          "id": "bananain_data",
+          "name": "账号数据",
+          "type": "textarea",
+          "desc": "JSON 数组格式"
+        },
+        {
+          "id": "bananain_activity_id",
+          "name": "活动 ID",
+          "type": "text",
+          "desc": "签到活动使用的 activityId，通常通过抓包自动更新。"
+        }
+      ],
+      "author": "@Levi",
+      "repo": "https://github.com/czy13724",
+      "icons": [
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/bananain.png",
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/bananain.png"
+      ]
+    },
+    {
+      "id": "d6g",
+      "name": "第6感俱乐部",
+      "keys": [
+        "d6g_data",
+        "d6g_activityId"
+      ],
+      "settings": [
+        {
+          "id": "d6g_data",
+          "name": "账号数据",
+          "type": "textarea",
+          "desc": "JSON 数组格式"
+        },
+        {
+          "id": "d6g_activityId",
+          "name": "活动 ID",
+          "type": "text",
+          "desc": "签到活动 ID，抓包后自动更新。"
+        }
+      ],
+      "author": "@Levi",
+      "repo": "https://github.com/czy13724",
+      "icons": [
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/d6g.png",
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/d6g.png"
+      ]
+    },
+    {
+      "id": "pingme",
+      "name": "PingMe",
+      "keys": [
+        "pingme_data",
+        "pingme_action",
+        "pingme_ym",
+        "pingme_debug",
+        "pingme_merge"
+      ],
+      "settings": [
+        {
+          "id": "pingme_data",
+          "name": "账号数据",
+          "type": "textarea",
+          "desc": "JSON 数组格式"
+        },
+        {
+          "id": "pingme_action",
+          "name": "执行动作",
+          "type": "select",
+          "items": [
+            {
+              "key": "status",
+              "label": "查询"
+            },
+            {
+              "key": "checkin",
+              "label": "签到"
+            },
+            {
+              "key": "videoBonus",
+              "label": "视频奖励"
+            },
+            {
+              "key": "billList",
+              "label": "账单列表"
+            }
+          ],
+          "val": "status",
+          "desc": "选择要执行的任务动作"
+        },
+        {
+          "id": "pingme_ym",
+          "name": "查询月份",
+          "type": "text",
+          "desc": "账单查询月份 (YYYY-MM)，不填则默认为当月。"
+        },
+        {
+          "id": "pingme_debug",
+          "name": "开启调试",
+          "type": "boolean",
+          "desc": "输出更详细的调试日志。",
+          "val": "false"
+        },
+        {
+          "id": "pingme_merge",
+          "name": "聚合通知",
+          "type": "boolean",
+          "desc": "开启后多账号仅推送一条汇总通知。",
+          "val": "true"
+        }
+      ],
+      "author": "@Levi",
+      "repo": "https://github.com/czy13724",
+      "icons": [
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/pingme.png",
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/pingme.png"
+      ]
+    },
+    {
+      "id": "wetalk",
+      "name": "WeTalk",
+      "keys": [
+        "wetalk_data",
+        "wetalk_action",
+        "wetalk_ym",
+        "wetalk_debug",
+        "wetalk_merge"
+      ],
+      "settings": [
+        {
+          "id": "wetalk_data",
+          "name": "账号数据",
+          "type": "textarea",
+          "desc": "JSON 数组格式。包含 email, callpin, uniquedeviceid 等抓包数据。"
+        },
+        {
+          "id": "wetalk_action",
+          "name": "执行动作",
+          "type": "select",
+          "items": [
+            {
+              "key": "status",
+              "label": "查询"
+            },
+            {
+              "key": "checkin",
+              "label": "签到"
+            },
+            {
+              "key": "videoBonus",
+              "label": "视频奖励"
+            },
+            {
+              "key": "billList",
+              "label": "账单列表"
+            }
+          ],
+          "val": "status",
+          "desc": "选择要执行的任务动作"
+        },
+        {
+          "id": "wetalk_ym",
+          "name": "查询月份",
+          "type": "text",
+          "desc": "账单查询月份 (YYYY-MM)，不填则默认为当月。"
+        },
+        {
+          "id": "wetalk_debug",
+          "name": "开启调试",
+          "type": "boolean",
+          "desc": "输出更详细的调试日志。",
+          "val": "false"
+        },
+        {
+          "id": "wetalk_merge",
+          "name": "聚合通知",
+          "type": "boolean",
+          "desc": "开启后多账号仅推送一条汇总通知。",
+          "val": "true"
+        }
+      ],
+      "author": "@Levi",
+      "repo": "https://github.com/czy13724",
+      "icons": [
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/wetalk.png",
+        "https://fastly.jsdelivr.net/gh/czy13724/LeviIcons@main/leviicons/wetalk.png"
+      ]
     }
   ]
 }
