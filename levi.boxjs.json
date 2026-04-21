@@ -439,9 +439,27 @@
         {
           "id": "lzly_manualRun",
           "name": "手动指定运行次数",
-          "type": "text",
-          "desc": "可手动指定当前运行次数，选择自动判断则根据定时任务自动计算。手动模式不影响每日计数重置",
-          "val": "0"
+          "val": "0",
+          "type": "radios",
+          "items": [
+            {
+              "key": "0",
+              "label": "自动判断"
+            },
+            {
+              "key": "1",
+              "label": "强制第1次"
+            },
+            {
+              "key": "2",
+              "label": "强制第2次"
+            },
+            {
+              "key": "3",
+              "label": "强制第3次"
+            }
+          ],
+          "desc": "可手动指定当前运行次数，选择自动判断则根据定时任务自动计算。手动模式不影响每日计数重置"
         },
         {
           "id": "lzly_cleanPlate",
@@ -1134,7 +1152,8 @@
         {
           "id": "pingme_action",
           "name": "执行动作",
-          "type": "select",
+          "val": "status",
+          "type": "radios",
           "items": [
             {
               "key": "status",
@@ -1150,11 +1169,10 @@
             },
             {
               "key": "billList",
-              "label": "账单列表"
+              "label": "账单查询"
             }
           ],
-          "val": "status",
-          "desc": "选择要执行的任务动作"
+          "desc": "执行动作：status(查询)、checkin(签到)、videoBonus(视频奖励)、billList(账单查询)"
         },
         {
           "id": "pingme_ym",
@@ -1204,7 +1222,8 @@
         {
           "id": "wetalk_action",
           "name": "执行动作",
-          "type": "select",
+          "val": "status",
+          "type": "radios",
           "items": [
             {
               "key": "status",
@@ -1220,11 +1239,10 @@
             },
             {
               "key": "billList",
-              "label": "账单列表"
+              "label": "账单查询"
             }
           ],
-          "val": "status",
-          "desc": "选择要执行的任务动作"
+          "desc": "执行动作：status(查询)、checkin(签到)、videoBonus(视频奖励)、billList(账单查询)"
         },
         {
           "id": "wetalk_ym",
